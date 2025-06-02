@@ -7,6 +7,7 @@ import ItemsToBuy from './components/ItemsToBuy'
 import ItemsBought from './components/ItemsBought'
 import Footer from './components/Footer'
 import Notification from './components/Notification'
+import { LoadingProvider } from './LoadingContext'
 
 // API base URL - update this to match your API endpoint
 const API_BASE_URL = 'http://127.0.0.1:8000/api'; // Change this to your actual API URL
@@ -136,7 +137,9 @@ function App() {
   }
 
   return (
-    <>
+    <LoadingProvider>
+      <div class="fruit-decoration apple"></div>
+      <div class="fruit-decoration orange"></div>
       <Header/>
       <div className='app-container'>
         <Stats 
@@ -161,7 +164,7 @@ function App() {
         message={notification.message}
         visible={notification.visible}
       />
-    </>
+    </LoadingProvider>
   )
 }
 

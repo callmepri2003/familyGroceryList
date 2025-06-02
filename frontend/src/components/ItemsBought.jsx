@@ -1,11 +1,22 @@
+import { useLoading } from "../LoadingContext";
+
 export default function ItemsBought({ items, onUpdateItem, onDeleteItem }) {
-  const handleMarkAsNotBought = (id) => {
-    onUpdateItem(id, false);
+  const { loading, setLoading } = useLoading();
+  const handleMarkAsNotBought = async (id) => {
+    setLoading(true);
+    try {
+      await onUpdateItem(id, false);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      onDeleteItem(id);
+    if (window.confirm('Are you sure?')) {
+      setLoading(true);
+      onDeleteItem(id).finally(() => setLoading(false));
     }
   };
 
@@ -13,7 +24,7 @@ export default function ItemsBought({ items, onUpdateItem, onDeleteItem }) {
     <>
       <h3 className="section-title"><i className="bi bi-check2-circle"></i> Items Bought</h3>
       <div className="card">
-          <ul className="list-group list-group-flush">
+          <ul data-cy="bought-section" className="list-group list-group-flush">
               {items.length === 0 ? (
                 <li className="list-group-item empty-state">
                     <div>
@@ -24,7 +35,7 @@ export default function ItemsBought({ items, onUpdateItem, onDeleteItem }) {
                 </li>
               ) : (
                 items.map(item => (
-                  <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center bought-item">
+                  <li data-cy="grocery-item" key={item.id} className="list-group-item d-flex justify-content-between align-items-center bought-item">
                     <div className="item-info">
                       <span className="item-name text-decoration-line-through text-muted">{item.name}</span>
                       <small className="text-muted d-block">
@@ -33,16 +44,20 @@ export default function ItemsBought({ items, onUpdateItem, onDeleteItem }) {
                     </div>
                     <div className="item-actions">
                       <button 
+                        data-cy="MarkAsNotBoughtBtn"
                         className="btn btn-warning btn-sm me-2"
                         onClick={() => handleMarkAsNotBought(item.id)}
                         title="Mark as not bought"
+                        disabled={loading}
                       >
                         <i className="bi bi-arrow-counterclockwise"></i>
                       </button>
                       <button 
+                        data-cy="delete-button"
                         className="btn btn-danger btn-sm"
                         onClick={() => handleDelete(item.id)}
                         title="Delete item"
+                        disabled={loading}
                       >
                         <i className="bi bi-trash"></i>
                       </button>

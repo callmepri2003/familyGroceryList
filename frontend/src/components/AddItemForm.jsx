@@ -30,6 +30,7 @@ export default function AddItemForm({ onAddItem }) {
           <form onSubmit={handleSubmit}>
               <div className="input-group">
                   <input 
+                    data-cy="add-item-input"
                     type="text" 
                     className="form-control" 
                     placeholder="Add milk, eggs, bread..." 
@@ -39,6 +40,7 @@ export default function AddItemForm({ onAddItem }) {
                     required 
                   />
                   <button 
+                    data-cy="add-item-button"
                     className="btn btn-add" 
                     type="submit"
                     disabled={isSubmitting || !itemName.trim()}
