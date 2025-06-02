@@ -1,1 +1,49 @@
 .sliceup/
+# ===========================
+# Global
+# ===========================
+__pycache__/
+*.py[cod]
+*.swp
+*.log
+*.sqlite3
+.env
+.DS_Store
+*.egg-info/
+*.bak
+
+# ===========================
+# Django (backend/)
+# ===========================
+backend/db.sqlite3
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/env/
+backend/.env
+backend/media/
+backend/staticfiles/
+backend/*/migrations/__pycache__/
+backend/*/migrations/*.pyc
+backend/*/migrations/*.pyo
+backend/*/migrations/*.bak
+
+# Optional: ignore compiled files & temporary migration files
+backend/**/migrations/
+!backend/**/migrations/__init__.py
+
+# ===========================
+# React (frontend/)
+# ===========================
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.DS_Store
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.eslintcache
+
+# Optional lock files (if you're using yarn or npm, pick one)
+frontend/package-lock.json
+frontend/yarn.lock
