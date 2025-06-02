@@ -1,15 +1,50 @@
-export default function AddItemForm(){
+import { useState } from 'react';
+
+export default function AddItemForm({ onAddItem }) {
+  const [itemName, setItemName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!itemName.trim()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    const success = await onAddItem(itemName.trim());
+    
+    if (success) {
+      setItemName(''); // Clear input on success
+    }
+    
+    setIsSubmitting(false);
+  };
+
   return (
-    <div class="card">
-      <div class="card-header">
-          <i class="bi bi-plus-circle"></i> Add New Item
+    <div className="card">
+      <div className="card-header">
+          <i className="bi bi-plus-circle"></i> Add New Item
       </div>
-      <div class="card-body">
-          <form id="add-item-form">
-              <div class="input-group">
-                  <input type="text" class="form-control" id="new-item-input" placeholder="Add milk, eggs, bread..." required />
-                  <button class="btn btn-add" type="submit">
-                      <i class="bi bi-plus-lg"></i> Add Item
+      <div className="card-body">
+          <form onSubmit={handleSubmit}>
+              <div className="input-group">
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    placeholder="Add milk, eggs, bread..." 
+                    value={itemName}
+                    onChange={(e) => setItemName(e.target.value)}
+                    disabled={isSubmitting}
+                    required 
+                  />
+                  <button 
+                    className="btn btn-add" 
+                    type="submit"
+                    disabled={isSubmitting || !itemName.trim()}
+                  >
+                      <i className="bi bi-plus-lg"></i> 
+                      {isSubmitting ? 'Adding...' : 'Add Item'}
                   </button>
               </div>
           </form>
