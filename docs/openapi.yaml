@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Grocery List API
+  description: API for managing a shared family grocery list
+  version: 1.0.0
+
+paths:
+  /items:
+    get:
+      summary: Get all grocery items
+      description: Retrieve both active and bought items
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroceryItem'
+    post:
+      summary: Add a new grocery item
+      description: Create a new item in the grocery list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroceryItem'
+      responses:
+        '201':
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryItem'
+        '400':
+          description: Invalid input
+
+  /items/{id}:
+    delete:
+      summary: Delete a grocery item
+      description: Remove an item from the grocery list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Item deleted successfully
+        '404':
+          description: Item not found
+
+    patch:
+      summary: Update an item's status
+      description: Mark an item as bought/not bought
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateItemStatus'
+      responses:
+        '200':
+          description: Status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryItem'
+        '404':
+          description: Item not found
+
+components:
+  schemas:
+    GroceryItem:
+      type: object
+      required:
+        - id
+        - name
+        - bought
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Organic Milk"
+        bought:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: "2023-08-15T14:30:00Z"
+
+    NewGroceryItem:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Whole Wheat Bread"
+          minLength: 1
+          maxLength: 100
+
+    UpdateItemStatus:
+      type: object
+      required:
+        - bought
+      properties:
+        bought:
+          type: boolean
+          example: true
