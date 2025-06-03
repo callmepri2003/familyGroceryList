@@ -47,3 +47,5 @@ frontend/.eslintcache
 # Optional lock files (if you're using yarn or npm, pick one)
 frontend/package-lock.json
 frontend/yarn.lock
+
+.vscode

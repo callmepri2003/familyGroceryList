@@ -10,7 +10,7 @@ import Notification from './components/Notification'
 import { LoadingProvider } from './LoadingContext'
 
 // API base URL - update this to match your API endpoint
-const API_BASE_URL = 'http://127.0.0.1:8000/api'; // Change this to your actual API URL
+const API_BASE_URL = 'http://192.168.110.155:8000/api'; // Change this to your actual API URL
 
 function App() {
   const [items, setItems] = useState([]);
@@ -20,7 +20,7 @@ function App() {
   // Fetch all items from API
   const fetchItems = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/items`);
+      const response = await fetch(`${API_BASE_URL}/items/`);
       if (response.ok) {
         const data = await response.json();
         setItems(data);
@@ -38,7 +38,7 @@ function App() {
   // Add new item
   const addItem = async (name) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/items`, {
+      const response = await fetch(`${API_BASE_URL}/items/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function App() {
   // Update item status (bought/not bought)
   const updateItemStatus = async (id, bought) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/items/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/items/${id}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ function App() {
   // Delete item
   const deleteItem = async (id) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/items/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/items/${id}/`, {
         method: 'DELETE',
       });
 
