@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from groceryItem.views import GroceryItemViewSet
 
 router = DefaultRouter()
-router.register(r'items', GroceryItemViewSet, basename='item')
+router.register(r'items', GroceryItemViewSet, basename='groceryitem')
 
 urlpatterns = [
     path('', include(router.urls)),

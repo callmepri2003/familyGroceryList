@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8=o4(&aq)b)dwwu5tas8^c84_%(j(n$ph03jl7m-(5!!=rwy^3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.110.155']
 
 
 # Application definition
@@ -160,9 +160,9 @@ REST_FRAMEWORK = {
 
 # CORS configuration (optional)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React development server
-    "http://127.0.0.1:3000",
-    "http://localhost:8080",  # Vue development server
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://192.168.110.155:5173"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -182,7 +182,7 @@ LOGGING = {
         },
     },
     'loggers': {
-        'grocery': {  # Replace with your app name
+        'groceryItem': { 
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,

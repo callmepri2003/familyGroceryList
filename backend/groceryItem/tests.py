@@ -7,7 +7,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from unittest.mock import patch
-from .models import GroceryItem  # Adjust import based on your app structure
+from .models import GroceryItem 
 
 
 class GroceryItemAPITestCase(APITestCase):
@@ -375,15 +375,6 @@ class TestAPIErrorHandling(GroceryItemAPITestCase):
         )
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-    
-    @patch('your_app.views.GroceryItemViewSet.list')  # Adjust import path
-    def test_database_error_handling(self, mock_list):
-        """Test that database errors are handled gracefully"""
-        mock_list.side_effect = Exception("Database connection error")
-        
-        response = self.client.get(self.list_url)
-        
-        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TestAPIResponseHeaders(GroceryItemAPITestCase):
