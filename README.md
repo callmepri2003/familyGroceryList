@@ -2,6 +2,8 @@
 
 A full-stack grocery list management application built with Django REST Framework backend and React frontend. Keep track of your grocery items, mark them as bought, and manage your shopping efficiently.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - ✅ Add new grocery items

@@ -10,7 +10,7 @@ import Notification from './components/Notification'
 import { LoadingProvider } from './LoadingContext'
 
 // API base URL - update this to match your API endpoint
-const API_BASE_URL = 'http://192.168.110.155:8000/api'; // Change this to your actual API URL
+const API_BASE_URL = 'http://127.0.0.1:8000/api'; // Change this to your actual API URL
 
 function App() {
   const [items, setItems] = useState([]);
